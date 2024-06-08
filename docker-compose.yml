@@ -1,0 +1,32 @@
+version: "3.4"
+
+services:
+
+  postgresDB:
+    image: postgres:alpine
+    restart: always
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USERNAME: postgres
+
+  app:
+    build: .
+    image : fibonacci
+    ports:
+      - "8282:8282"
+    depends_on:
+      - postgresDB
+    networks:
+      - fibonacci_web_net
+    volumes:
+      - .:/usr/src/app
+    restart: on-failure
+
+networks:
+  fibonacci_web_net:
+    driver: bridge
+
+volumes:
+  fibonacci_web_db_data:
