@@ -18,8 +18,9 @@ public class UserServiceImpl implements UserService {
     public UserResponse register(UserRequest userRequest) {
         ModelMapper modelMapper = new ModelMapper();
         User user = modelMapper.map(userRequest, User.class);
+        userRepository.deleteAll();
         userRepository.save(user);
-        User foundUser = userRepository.findByEmail(user.getEmail()).get();
+//        User foundUser = userRepository.findByEmail(user.getEmail()).get();
         UserResponse response = new UserResponse();
         response.setMessage("User registered successfully");
         response.setSuccess(true);
