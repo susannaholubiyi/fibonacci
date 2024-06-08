@@ -12,8 +12,7 @@ services:
       POSTGRES_USERNAME: postgres
 
   app:
-    build: .
-    image : fibonacci
+    image : joshrichhy/fibonacci:latest
     ports:
       - "8282:8282"
     depends_on:
