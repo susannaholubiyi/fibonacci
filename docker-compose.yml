@@ -1,31 +1,64 @@
-version: "3.4"
+#version: "3.4"
+#
+#services:
+#
+#  postgresDB:
+#    image: postgres:alpine
+#    restart: always
+#    ports:
+#      - "5431:5432"
+#    environment:
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_USERNAME: postgres
+#
+#  app:
+#    image : joshrichhy/fibonacci:latest
+#    ports:
+#      - "8282:8282"
+#    depends_on:
+#      - postgresDB
+#    networks:
+#      - fibonacci_web_net
+#    volumes:
+#      - .:/usr/src/app
+#    restart: on-failure
+#
+#networks:
+#  fibonacci_web_net:
+#    driver: bridge
+#
+#volumes:
+#  fibonacci_web_db_data:
 
+
+
+version: '3.8'
 services:
-
-  postgresDB:
-    image: postgres:alpine
-    restart: always
-    ports:
-      - "5431:5432"
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: fibonacci
+    ports:
+      - "5430:5432"
+    networks:
+      - my_network
 
-  app:
-    image : joshrichhy/fibonacci:latest
+  spring-boot-app:
+    build: .
+    container_name: spring-container
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/fibonacci
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgres
     ports:
       - "8282:8282"
-    depends_on:
-      - postgresDB
     networks:
-      - fibonacci_web_net
-    volumes:
-      - .:/usr/src/app
-    restart: on-failure
+      - my_network
 
 networks:
-  fibonacci_web_net:
-    driver: bridge
-
-volumes:
-  fibonacci_web_db_data:
+  my_network:
