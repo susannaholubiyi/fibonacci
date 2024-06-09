@@ -26,4 +26,18 @@ public class UserServiceImpl implements UserService {
         response.setSuccess(true);
         return response;
     }
+
+    public long calculateFibonacci(int number) {
+        if (number <= 1) {
+            return number;
+        }
+        long fibo1 = 0, fibo2 = 1;
+        long fibonacci = 1;
+        for (int i = 2; i <= number; i++) {
+            fibonacci = fibo1 + fibo2;
+            fibo1 = fibo2;
+            fibo2 = fibonacci;
+        }
+        return fibonacci;
+    }
 }
