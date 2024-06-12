@@ -21,6 +21,11 @@ jobs:
         run: mvn -B clean package -DskipTests
       - name: Maven Verify
         run: mvn -B clean verify
+      - name: Maven Test
+        run: mvn test
+      - name: Maven Generate report
+        run: mvn surefire-report:report
+
 
   build:
 
