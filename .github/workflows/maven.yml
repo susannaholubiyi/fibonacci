@@ -44,3 +44,9 @@ jobs:
         run: mvn test
       - name: Maven Generate report
         run: mvn surefire-report:report
+
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger subsequent workflows
+        run: echo "Triggering subsequent workflows..."
