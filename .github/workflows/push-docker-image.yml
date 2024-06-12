@@ -46,14 +46,3 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push joshrichhy/fibonacci:latest
-
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          port: ${{ secrets.EC2_PORT }}
-          script: |
-            ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-            ssh -i ${{ secrets.EC2_PRIVATE_KEY }} -p ${{ secrets.EC2_PORT }} ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 'docker-compose -f /home/ubuntu/docker-compose.yml up'
