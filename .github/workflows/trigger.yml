@@ -1,0 +1,13 @@
+name: Trigger Workflows
+
+on:
+  push:
+    branches:
+        - master
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger subsequent workflows
+        run: echo "Triggering subsequent workflows..."
