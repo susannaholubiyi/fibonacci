@@ -44,3 +44,4 @@ jobs:
           DB_NAME: fibonacci
           DB_USER: postgres
           DB_PASSWORD: postgres
+          POSTGRES_DB_URL: jdbc:postgresql://localhost:5432
