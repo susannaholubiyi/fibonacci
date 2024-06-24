@@ -1,0 +1,32 @@
+name: Send Email on Push
+
+on:
+  push:
+    branches:
+      - master 
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Send email using curl
+        env:
+          SMTP_SERVER: semicolon.africa
+          SMTP_PORT: 465
+          SMTP_USERNAME: builds@semicolon.africa
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}  
+        run: |
+          echo "From: builds@semicolon.africa" > /tmp/email.txt
+          echo "To: joshua.o@semicolon.africa" >> /tmp/email.txt
+          echo "Subject: GitHub Action Email Test" >> /tmp/email.txt
+          echo "This is the body of the email." >> /tmp/email.txt
+          curl --ssl-reqd \
+            --url "smtps://${SMTP_SERVER}:${SMTP_PORT}" \
+            --mail-from "builds@semicolon.africa" \
+            --mail-rcpt "joshua.o@semicolon.africa" \
+            --user "${SMTP_USERNAME}:${SMTP_PASSWORD}" \
+            --upload-file /tmp/email.txt
