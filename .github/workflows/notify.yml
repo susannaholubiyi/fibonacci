@@ -22,7 +22,7 @@ jobs:
 
       - name: Send email using curl
         env:
-          SMTP_SERVER: mail.semicolon.africa
+          SMTP_SERVER: semicolon.africa
           SMTP_PORT: 465
           SMTP_USERNAME: builds@semicolon.africa
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}  
