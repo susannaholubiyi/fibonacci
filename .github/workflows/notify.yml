@@ -25,11 +25,11 @@ jobs:
           SMTP_SERVER: semicolon.africa
           SMTP_PORT: 465
           SMTP_USERNAME: builds@semicolon.africa
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}  
+          SMTP_PASSWORD:  6xbZJUw&0coHCoB  
         run: |
           curl --ssl-reqd \
             --url "smtps://${SMTP_SERVER}:${SMTP_PORT}" \
             --mail-from "builds@semicolon.africa" \
             --mail-rcpt "joshua.o@semicolon.africa" \
-            --user "${SMTP_USERNAME}:${SMTP_PASSWORD}" \
+            --user "builds@semicolon.africa:6xbZJUw&0coHCoB" \
             --upload-file /tmp/email.txt
