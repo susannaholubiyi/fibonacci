@@ -24,12 +24,12 @@ jobs:
         env:
           SMTP_SERVER: semicolon.africa
           SMTP_PORT: 465
-          SMTP_USERNAME: builds@semicolon.africa
-          SMTP_PASSWORD:  6xbZJUw&0coHCoB  
+          SMTP_USERNAME: builds@semicolon.africa  # Update with your SMTP username
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}  # Ensure SMTP_PASSWORD is set in your GitHub repository secrets
         run: |
           curl --ssl-reqd \
             --url "smtps://${SMTP_SERVER}:${SMTP_PORT}" \
             --mail-from "builds@semicolon.africa" \
             --mail-rcpt "joshua.o@semicolon.africa" \
-            --user "builds@semicolon.africa:6xbZJUw&0coHCoB" \
+            --user "${SMTP_USERNAME}:${SMTP_PASSWORD}" \
             --upload-file /tmp/email.txt
